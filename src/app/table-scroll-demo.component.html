@@ -1,0 +1,56 @@
+<h3>Frozen Columns</h3>
+<p-table [columns]="scrollableCols" [frozenColumns]="frozenCols" [value]="cars" [scrollable]="true" scrollHeight="300px"
+ frozenWidth="300px">
+	<ng-template pTemplate="frozencolgroup" let-columns>
+		<colgroup>
+			<col style="width:50px">
+			<col style="width:200px">
+			<col style="width:50px">
+		</colgroup>
+	</ng-template>
+	<ng-template pTemplate="colgroup" let-columns>
+		<colgroup>
+			<col style="width:150px">
+			<col style="width:150px">
+			<col style="width:150px">
+			<col style="width:150px">
+		</colgroup>
+	</ng-template>
+	<ng-template pTemplate="frozenheader" let-columns>
+		<tr>
+			<th>All</th>
+			<th *ngFor="let col of columns">
+				{{col.header}}
+			</th>
+		</tr>
+	</ng-template>
+	<ng-template pTemplate="header" let-columns>
+		<tr>
+			<th *ngFor="let col of columns">
+				{{col.header}}
+			</th>
+		</tr>
+	</ng-template>
+	<ng-template pTemplate="frozenbody" let-rowData let-columns="columns">
+		<tr>
+			<td style="text-align: center">
+				<p-tableCheckbox [value]="rowData" [attr.disabled]="
+                    rowData.setupType === 'No Action' &&
+                    rowData.currentStatus === 'INACTIVE'
+                      ? 'disabled'
+                      : null
+                  "></p-tableCheckbox>
+			</td>
+			<td *ngFor="let col of columns">
+				{{ rowData[col.field] }}
+			</td>
+		</tr>
+	</ng-template>
+	<ng-template pTemplate="body" let-rowData let-columns="columns">
+		<tr>
+			<td *ngFor="let col of columns">
+				{{rowData[col.field]}}
+			</td>
+		</tr>
+	</ng-template>
+</p-table>
